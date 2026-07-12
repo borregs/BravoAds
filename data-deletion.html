@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Deletion | Bravo Ad Agency</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    :root {
+      --black: #000000;
+      --cerulean: #4D7697;
+      --moss-green: #7FB750;
+      --lemon-lime: #DFE405;
+      --muted-olive: #8CB356;
+      --white: #FFFFFF;
+      --gray-light: #F4F6F8;
+      --gray-text: #6B7280;
+      --border: #E5E7EB;
+      --foreground: #111827;
+      --muted-foreground: #4B5563;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--foreground);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    .header {
+      background: var(--black);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header img { height: 44px; }
+    .header nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 24px;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .header nav a:hover { opacity: 1; }
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+    .content h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--foreground);
+    }
+    .content .subtitle {
+      font-size: 15px;
+      color: var(--gray-text);
+      margin-bottom: 40px;
+    }
+    .content h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 36px;
+      margin-bottom: 14px;
+      color: var(--foreground);
+      border-bottom: 2px solid var(--moss-green);
+      padding-bottom: 6px;
+    }
+    .content p {
+      margin-bottom: 14px;
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+    .content ul, .content ol {
+      margin-bottom: 14px;
+      margin-left: 24px;
+    }
+    .content li {
+      color: var(--muted-foreground);
+      line-height: 1.7;
+      padding: 3px 0;
+    }
+    .content strong {
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    .content a {
+      color: var(--cerulean);
+      text-decoration: underline;
+    }
+    .address-block {
+      background: var(--gray-light);
+      border-left: 4px solid var(--cerulean);
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 15px;
+      color: var(--muted-foreground);
+      line-height: 1.8;
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(77,118,151,0.08), rgba(127,183,80,0.08));
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cerulean);
+      margin-bottom: 12px;
+    }
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin-left: 0;
+      padding: 0;
+    }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 20px;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 32px;
+      height: 32px;
+      background: var(--moss-green);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .steps li strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .timeline-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--moss-green);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .timeline-item .days {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--cerulean);
+      margin-bottom: 4px;
+    }
+    .timeline-item .label {
+      font-size: 14px;
+      color: var(--gray-text);
+    }
+    .footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .footer img { height: 36px; margin-bottom: 16px; }
+    .footer-links { margin-bottom: 16px; }
+    .footer-links a {
+      color: var(--lemon-lime);
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 12px;
+    }
+    .footer-links a:hover { opacity: 0.8; }
+    .footer p { font-size: 13px; opacity: 0.6; }
+    @media (max-width: 640px) {
+      .content { padding: 32px 20px 56px; }
+      .header { padding: 12px 16px; }
+      .header nav a { margin-left: 12px; font-size: 13px; }
+      .content h1 { font-size: 26px; }
+      .content h2 { font-size: 19px; }
+      .timeline { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html"><img src="poweisa-logo-color.svg" alt="PowerISA Logo"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="data-deletion.html">Data Deletion</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Data Deletion Request</h1>
+    <p class="subtitle">Your data, your rights. Here's how to request deletion of your personal information.</p>
+
+    <h2>1. Your Right to Data Deletion</h2>
+    <p>Under Mexico's <em>Nueva Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares</em> (NLFPDPPP), you have the right to request the cancellation (deletion) of your personal data held by <strong>Bravo Ad Agency</strong>. This is part of your ARCO rights (Access, Rectification, Cancellation, and Opposition).</p>
+    <p>We are committed to honoring your data deletion requests promptly and transparently.</p>
+
+    <h2>2. What Data We Collect</h2>
+    <p>Through our PowerISA recruiting campaigns and META applications, we may collect the following personal data:</p>
+    <ul>
+      <li><strong>Contact information:</strong> Name, email address, phone number.</li>
+      <li><strong>Professional information:</strong> Resume details, work experience, qualifications.</li>
+      <li><strong>Platform data:</strong> Information provided through META lead forms (Facebook, Instagram).</li>
+      <li><strong>Communication records:</strong> Messages and correspondence related to recruiting.</li>
+    </ul>
+    <p>For full details on our data practices, please refer to our <a href="privacy.html">Privacy Policy</a>.</p>
+
+    <h2>3. How to Request Data Deletion</h2>
+    <p>To request the deletion of your personal data, you must submit a <strong>written request via mail</strong> to the following address:</p>
+
+    <div class="address-block">
+      <strong>Bravo Ad Agency</strong><br>
+      Attn: Daniela Flores<br>
+      Constitucion 64<br>
+      Colonia Centro<br>
+      Uruapan, Michoacan De Ocampo<br>
+      Codigo Postal 60000<br>
+      Mexico
+    </div>
+
+    <div class="highlight-box">
+      <h3>Your request must include:</h3>
+      <ul>
+        <li>Your full legal name.</li>
+        <li>A clear description of the personal data you wish to have deleted.</li>
+        <li>A copy of an official identification document (e.g., INE, passport) to verify your identity.</li>
+        <li>A return mailing address or contact method where we can send confirmation.</li>
+        <li>Your signature.</li>
+      </ul>
+    </div>
+
+    <h2>4. Deletion Process</h2>
+    <p>Once we receive your written request, the following process will be followed:</p>
+
+    <ol class="steps">
+      <li>
+        <strong>Receipt and Acknowledgment</strong>
+        We will acknowledge receipt of your request within 5 business days of receiving your letter.
+      </li>
+      <li>
+        <strong>Identity Verification</strong>
+        We will verify your identity using the documentation provided. If additional information is needed, we will contact you at the return address specified in your request.
+      </li>
+      <li>
+        <strong>Data Review</strong>
+        We will identify all personal data associated with your request across our systems, including SaaS applications and cloud services.
+      </li>
+      <li>
+        <strong>Deletion Execution</strong>
+        Your personal data will be securely deleted using appropriate methods, including overwriting, crypto-shredding, or secure deletion tools, as outlined in our <a href="privacy.html">Privacy Policy</a>.
+      </li>
+      <li>
+        <strong>Confirmation</strong>
+        You will receive written confirmation that your data has been deleted, sent to the return address provided in your request.
+      </li>
+    </ol>
+
+    <h2>5. Processing Timeline</h2>
+    <p>In accordance with the NLFPDPPP and our commitment to ARCO rights, your request will be processed within the following timeframe:</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="days">5</div>
+        <div class="label">Business days to acknowledge receipt</div>
+      </div>
+      <div class="timeline-item">
+        <div class="days">15</div>
+        <div class="label">Business days maximum to complete deletion</div>
+      </div>
+      <div class="timeline-item">
+        <div class="days">5</div>
+        <div class="label">Business days to send written confirmation</div>
+      </div>
+    </div>
+
+    <h2>6. Exceptions</h2>
+    <p>In certain circumstances, we may be unable to fully delete your data, including but not limited to:</p>
+    <ul>
+      <li><strong>Legal obligations:</strong> When retention is required by applicable law or regulation.</li>
+      <li><strong>Active legal holds:</strong> When data is subject to ongoing litigation or investigation.</li>
+      <li><strong>Contractual obligations:</strong> When data must be retained to fulfill existing contractual commitments.</li>
+    </ul>
+    <p>If any exception applies, we will notify you in writing with a clear explanation of the reason and the expected duration of continued retention.</p>
+
+    <h2>7. After Deletion</h2>
+    <p>Once your data has been deleted:</p>
+    <ul>
+      <li>Your personal information will be permanently removed from our active systems.</li>
+      <li>Backup copies will be purged in accordance with our backup rotation schedule, as described in our <a href="privacy.html">Privacy Policy</a>.</li>
+      <li>We will no longer be able to contact you regarding recruiting campaigns or opportunities.</li>
+      <li>A record of the deletion request and confirmation will be retained for audit and compliance purposes only.</li>
+    </ul>
+
+    <h2>8. Questions</h2>
+    <p>If you have questions about the data deletion process or your ARCO rights, please send your inquiry in writing to the address listed above, addressed to <strong>Daniela Flores</strong>.</p>
+    <p>For more information about how we handle your data, please review our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
+  </main>
+
+  <footer class="footer">
+    <img src="poweisa-logo-color.svg" alt="PowerISA Logo">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="data-deletion.html">Data Deletion</a>
+    </div>
+    <p>&copy; 2026 Bravo Ad Agency. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
